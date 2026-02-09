@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/static/style.css">
+<title>Barbearia</title>
+</head>
+
+<body>
+
+<h1>Agendar Corte 💈</h1>
+
+<form id="form">
+<input type="text" id="nome" placeholder="Nome" required>
+
+<select id="servico">
+<option value="Corte">Corte</option>
+<option value="Barba">Barba</option>
+</select>
+
+<input type="date" id="data" required>
+<input type="time" id="hora" required>
+
+<button>Agendar</button>
+</form>
+
+<script>
+form.addEventListener("submit", async (e)=>{
+e.preventDefault()
+
+const res = await fetch("/agendar",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+nome:nome.value,
+servico:servico.value,
+data:data.value,
+hora:hora.value
+})
+})
+
+const json = await res.json()
+alert(json.mensagem || json.erro)
+})
+</script>
+
+</body>
+</html>
